@@ -1,16 +1,18 @@
 package(default_visibility = ["//visibility:public"])
 
 defines = [
-    # TODO: Bifurcate for Linux
-    "_WIN32", 
-    "USE_DOUBLE_PRECISION=ON", 
+    # TODO: change this for production
     "CMAKE_BUILD_TYPE=Debug", 
-    "BT_USE_SSE", 
-    "BT_USE_SSE_IN_API", 
-    "BT_USE_SIMD_VECTOR3", 
-    # ARM
-    #"BT_USE_NEON", 
-    ]
+    ] + select({
+        "//platforms:win32": [
+            "_WIN32", 
+            "USE_DOUBLE_PRECISION=ON", 
+            "BT_USE_SSE", 
+            "BT_USE_SSE_IN_API", 
+            "BT_USE_SIMD_VECTOR3", 
+            ],
+        "//conditions:default": [ ],
+    })
 
 cc_library(
     name="Collision",
