@@ -40,6 +40,7 @@ cc_library(
     name="Dynamics",
     hdrs = [ "btBulletDynamicsCommon.h", ] + glob([
           "BulletDynamics/**/*.h",
+          "BulletDynamics/**/*.cpp",
         ]),
     srcs = [
         "btBulletDynamicsAll.cpp",
