@@ -64,14 +64,14 @@ public:
 			return (btMultiBodyLinkCollider*)colObj;
 		return 0;
 	}
-	static const btMultiBodyLinkCollider* upcast(const btCollisionObject* colObj)
+	static const btMultiBodyLinkCollider* upcast(const btCollisionObject* const colObj)
 	{
 		if (colObj->getInternalType() & btCollisionObject::CO_FEATHERSTONE_LINK)
 			return (btMultiBodyLinkCollider*)colObj;
 		return 0;
 	}
 
-	virtual bool checkCollideWithOverride(const btCollisionObject* co) const
+	virtual bool checkCollideWithOverride(const btCollisionObject* const co) const
 	{
 		const btMultiBodyLinkCollider* other = btMultiBodyLinkCollider::upcast(co);
 		if (!other)

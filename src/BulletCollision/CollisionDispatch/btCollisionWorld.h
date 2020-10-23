@@ -431,19 +431,31 @@ public:
 
 	/// rayTest performs a raycast on all objects in the btCollisionWorld, and calls the resultCallback
 	/// This allows for several queries: first hit, all hits, any hit, dependent on the value returned by the callback.
-	virtual void rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, RayResultCallback& resultCallback) const;
+	void rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, RayResultCallback& resultCallback) const {
+		rayTest(rayFromWorld, rayToWorld, &resultCallback);
+	}
+	virtual void rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, RayResultCallback* resultCallback) const;
 
 	/// convexTest performs a swept convex cast on all objects in the btCollisionWorld, and calls the resultCallback
 	/// This allows for several queries: first hit, all hits, any hit, dependent on the value return by the callback.
-	void convexSweepTest(const btConvexShape* castShape, const btTransform& from, const btTransform& to, ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration = btScalar(0.)) const;
+	void convexSweepTest(const btConvexShape* const castShape, const btTransform& from, const btTransform& to, ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration = btScalar(0.)) const {
+		convexSweepTest(castShape, from, to, &resultCallback, allowedCcdPenetration	);
+	}
+	void convexSweepTest(const btConvexShape* const castShape, const btTransform& from, const btTransform& to, ConvexResultCallback* resultCallback, btScalar allowedCcdPenetration = btScalar(0.)) const;
 
 	///contactTest performs a discrete collision test between colObj against all objects in the btCollisionWorld, and calls the resultCallback.
 	///it reports one or more contact points for every overlapping object (including the one with deepest penetration)
-	void contactTest(btCollisionObject* colObj, ContactResultCallback& resultCallback);
+	void contactTest(btCollisionObject* colObj, ContactResultCallback& resultCallback) {
+		contactTest(colObj, &resultCallback);
+	}
+	void contactTest(btCollisionObject* colObj, ContactResultCallback* resultCallback);
 
 	///contactTest performs a discrete collision test between two collision objects and calls the resultCallback if overlap if detected.
 	///it reports one or more contact points (including the one with deepest penetration)
-	void contactPairTest(btCollisionObject* colObjA, btCollisionObject* colObjB, ContactResultCallback& resultCallback);
+	void contactPairTest(btCollisionObject* colObjA, btCollisionObject* colObjB, ContactResultCallback& resultCallback) {
+		contactPairTest(colObjA, colObjB, &resultCallback);
+	}
+	void contactPairTest(btCollisionObject* colObjA, btCollisionObject* colObjB, ContactResultCallback* resultCallback);
 
 	/// rayTestSingle performs a raycast call and calls the resultCallback. It is used internally by rayTest.
 	/// In a future implementation, we consider moving the ray test as a virtual method in btCollisionShape.
@@ -459,13 +471,13 @@ public:
 									  RayResultCallback& resultCallback);
 
 	/// objectQuerySingle performs a collision detection query and calls the resultCallback. It is used internally by rayTest.
-	static void objectQuerySingle(const btConvexShape* castShape, const btTransform& rayFromTrans, const btTransform& rayToTrans,
+	static void objectQuerySingle(const btConvexShape* const castShape, const btTransform& rayFromTrans, const btTransform& rayToTrans,
 								  btCollisionObject* collisionObject,
 								  const btCollisionShape* collisionShape,
 								  const btTransform& colObjWorldTransform,
 								  ConvexResultCallback& resultCallback, btScalar allowedPenetration);
 
-	static void objectQuerySingleInternal(const btConvexShape* castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
+	static void objectQuerySingleInternal(const btConvexShape* const castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
 										  const btCollisionObjectWrapper* colObjWrap,
 										  ConvexResultCallback& resultCallback, btScalar allowedPenetration);
 

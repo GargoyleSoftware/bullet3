@@ -145,7 +145,7 @@ void btSimpleBroadphase::setAabb(btBroadphaseProxy* proxy, const btVector3& aabb
 	sbp->m_aabbMax = aabbMax;
 }
 
-void btSimpleBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo, btBroadphaseRayCallback& rayCallback, const btVector3& aabbMin, const btVector3& aabbMax)
+void btSimpleBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo, btBroadphaseRayCallback* rayCallback, const btVector3& aabbMin, const btVector3& aabbMax)
 {
 	for (int i = 0; i <= m_LastHandleIndex; i++)
 	{
@@ -154,11 +154,11 @@ void btSimpleBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayT
 		{
 			continue;
 		}
-		rayCallback.process(proxy);
+		rayCallback->process(proxy);
 	}
 }
 
-void btSimpleBroadphase::aabbTest(const btVector3& aabbMin, const btVector3& aabbMax, btBroadphaseAabbCallback& callback)
+void btSimpleBroadphase::aabbTest(const btVector3& aabbMin, const btVector3& aabbMax, btBroadphaseAabbCallback* callback)
 {
 	for (int i = 0; i <= m_LastHandleIndex; i++)
 	{
@@ -169,7 +169,7 @@ void btSimpleBroadphase::aabbTest(const btVector3& aabbMin, const btVector3& aab
 		}
 		if (TestAabbAgainstAabb2(aabbMin, aabbMax, proxy->m_aabbMin, proxy->m_aabbMax))
 		{
-			callback.process(proxy);
+			callback->process(proxy);
 		}
 	}
 }

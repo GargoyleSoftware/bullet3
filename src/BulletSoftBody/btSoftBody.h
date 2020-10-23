@@ -1118,7 +1118,7 @@ public:
 	// Cast
 	//
 
-	static const btSoftBody* upcast(const btCollisionObject* colObj)
+	static const btSoftBody* upcast(const btCollisionObject* const colObj)
 	{
 		if (colObj->getInternalType() == CO_SOFT_BODY)
 			return (const btSoftBody*)colObj;

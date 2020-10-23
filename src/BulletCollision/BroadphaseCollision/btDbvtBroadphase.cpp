@@ -230,6 +230,10 @@ struct BroadphaseRayTester : btDbvt::ICollide
 		: m_rayCallback(orgCallback)
 	{
 	}
+	BroadphaseRayTester(btBroadphaseRayCallback* orgCallback)
+		: m_rayCallback(*orgCallback)
+	{
+	}
 	void Process(const btDbvtNode* leaf)
 	{
 		btDbvtProxy* proxy = (btDbvtProxy*)leaf->data;
@@ -237,7 +241,7 @@ struct BroadphaseRayTester : btDbvt::ICollide
 	}
 };
 
-void btDbvtBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo, btBroadphaseRayCallback& rayCallback, const btVector3& aabbMin, const btVector3& aabbMax)
+void btDbvtBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo, btBroadphaseRayCallback* rayCallback, const btVector3& aabbMin, const btVector3& aabbMax)
 {
 	BroadphaseRayTester callback(rayCallback);
 	btAlignedObjectArray<const btDbvtNode*>* stack = &m_rayTestStacks[0];
@@ -263,9 +267,9 @@ void btDbvtBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo,
 	m_sets[0].rayTestInternal(m_sets[0].m_root,
 							  rayFrom,
 							  rayTo,
-							  rayCallback.m_rayDirectionInverse,
-							  rayCallback.m_signs,
-							  rayCallback.m_lambda_max,
+							  rayCallback->m_rayDirectionInverse,
+							  rayCallback->m_signs,
+							  rayCallback->m_lambda_max,
 							  aabbMin,
 							  aabbMax,
 							  *stack,
@@ -274,9 +278,9 @@ void btDbvtBroadphase::rayTest(const btVector3& rayFrom, const btVector3& rayTo,
 	m_sets[1].rayTestInternal(m_sets[1].m_root,
 							  rayFrom,
 							  rayTo,
-							  rayCallback.m_rayDirectionInverse,
-							  rayCallback.m_signs,
-							  rayCallback.m_lambda_max,
+							  rayCallback->m_rayDirectionInverse,
+							  rayCallback->m_signs,
+							  rayCallback->m_lambda_max,
 							  aabbMin,
 							  aabbMax,
 							  *stack,
@@ -290,6 +294,10 @@ struct BroadphaseAabbTester : btDbvt::ICollide
 		: m_aabbCallback(orgCallback)
 	{
 	}
+	BroadphaseAabbTester(btBroadphaseAabbCallback* orgCallback)
+		: m_aabbCallback(*orgCallback)
+	{
+	}
 	void Process(const btDbvtNode* leaf)
 	{
 		btDbvtProxy* proxy = (btDbvtProxy*)leaf->data;
@@ -297,7 +305,7 @@ struct BroadphaseAabbTester : btDbvt::ICollide
 	}
 };
 
-void btDbvtBroadphase::aabbTest(const btVector3& aabbMin, const btVector3& aabbMax, btBroadphaseAabbCallback& aabbCallback)
+void btDbvtBroadphase::aabbTest(const btVector3& aabbMin, const btVector3& aabbMax, btBroadphaseAabbCallback* aabbCallback)
 {
 	BroadphaseAabbTester callback(aabbCallback);
 

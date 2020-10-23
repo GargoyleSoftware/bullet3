@@ -337,7 +337,7 @@ void btKinematicCharacterController::stepUp(btCollisionWorld* world)
 	}
 }
 
-bool btKinematicCharacterController::needsCollision(const btCollisionObject* body0, const btCollisionObject* body1)
+bool btKinematicCharacterController::needsCollision(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	bool collides = (body0->getBroadphaseHandle()->m_collisionFilterGroup & body1->getBroadphaseHandle()->m_collisionFilterMask) != 0;
 	collides = collides && (body1->getBroadphaseHandle()->m_collisionFilterGroup & body0->getBroadphaseHandle()->m_collisionFilterMask);

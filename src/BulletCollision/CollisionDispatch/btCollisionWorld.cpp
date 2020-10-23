@@ -599,9 +599,9 @@ void btCollisionWorld::rayTestSingleInternal(const btTransform& rayFromTrans, co
 	}
 }
 
-void btCollisionWorld::objectQuerySingle(const btConvexShape* castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
+void btCollisionWorld::objectQuerySingle(const btConvexShape* const castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
 										 btCollisionObject* collisionObject,
-										 const btCollisionShape* collisionShape,
+										 const btCollisionShape* const collisionShape,
 										 const btTransform& colObjWorldTransform,
 										 ConvexResultCallback& resultCallback, btScalar allowedPenetration)
 {
@@ -609,7 +609,7 @@ void btCollisionWorld::objectQuerySingle(const btConvexShape* castShape, const b
 	btCollisionWorld::objectQuerySingleInternal(castShape, convexFromTrans, convexToTrans, &tmpOb, resultCallback, allowedPenetration);
 }
 
-void btCollisionWorld::objectQuerySingleInternal(const btConvexShape* castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
+void btCollisionWorld::objectQuerySingleInternal(const btConvexShape* const castShape, const btTransform& convexFromTrans, const btTransform& convexToTrans,
 												 const btCollisionObjectWrapper* colObjWrap,
 												 ConvexResultCallback& resultCallback, btScalar allowedPenetration)
 {
@@ -1001,12 +1001,12 @@ struct btSingleRayCallback : public btBroadphaseRayCallback
 	}
 };
 
-void btCollisionWorld::rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, RayResultCallback& resultCallback) const
+void btCollisionWorld::rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, RayResultCallback* resultCallback) const
 {
 	//BT_PROFILE("rayTest");
 	/// use the broadphase to accelerate the search for objects, based on their aabb
 	/// and for each object with ray-aabb overlap, perform an exact ray test
-	btSingleRayCallback rayCB(rayFromWorld, rayToWorld, this, resultCallback);
+	btSingleRayCallback rayCB(rayFromWorld, rayToWorld, this, *resultCallback);
 
 #ifndef USE_BRUTEFORCE_RAYBROADPHASE
 	m_broadphasePairCache->rayTest(rayFromWorld, rayToWorld, rayCB);
@@ -1073,7 +1073,7 @@ struct btSingleSweepCallback : public btBroadphaseRayCallback
 	}
 };
 
-void btCollisionWorld::convexSweepTest(const btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration) const
+void btCollisionWorld::convexSweepTest(const btConvexShape* const castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, ConvexResultCallback* resultCallback, btScalar allowedCcdPenetration) const
 {
 	BT_PROFILE("convexSweepTest");
 	/// use the broadphase to accelerate the search for objects, based on their aabb
@@ -1098,7 +1098,7 @@ void btCollisionWorld::convexSweepTest(const btConvexShape* castShape, const btT
 
 #ifndef USE_BRUTEFORCE_RAYBROADPHASE
 
-	btSingleSweepCallback convexCB(castShape, convexFromWorld, convexToWorld, this, resultCallback, allowedCcdPenetration);
+	btSingleSweepCallback convexCB(castShape, convexFromWorld, convexToWorld, this, *resultCallback, allowedCcdPenetration);
 
 	m_broadphasePairCache->rayTest(convexFromTrans.getOrigin(), convexToTrans.getOrigin(), convexCB, castShapeAabbMin, castShapeAabbMax);
 
@@ -1110,7 +1110,7 @@ void btCollisionWorld::convexSweepTest(const btConvexShape* castShape, const btT
 	{
 		btCollisionObject* collisionObject = m_collisionObjects[i];
 		//only perform raycast if filterMask matches
-		if (resultCallback.needsCollision(collisionObject->getBroadphaseHandle()))
+		if (resultCallback->needsCollision(collisionObject->getBroadphaseHandle()))
 		{
 			//RigidcollisionObject* collisionObject = ctrl->GetRigidcollisionObject();
 			btVector3 collisionObjectAabbMin, collisionObjectAabbMax;
@@ -1124,7 +1124,7 @@ void btCollisionWorld::convexSweepTest(const btConvexShape* castShape, const btT
 								  collisionObject,
 								  collisionObject->getCollisionShape(),
 								  collisionObject->getWorldTransform(),
-								  resultCallback,
+								  *resultCallback,
 								  allowedCcdPenetration);
 			}
 		}
@@ -1229,18 +1229,18 @@ struct btSingleContactCallback : public btBroadphaseAabbCallback
 
 ///contactTest performs a discrete collision test against all objects in the btCollisionWorld, and calls the resultCallback.
 ///it reports one or more contact points for every overlapping object (including the one with deepest penetration)
-void btCollisionWorld::contactTest(btCollisionObject* colObj, ContactResultCallback& resultCallback)
+void btCollisionWorld::contactTest(btCollisionObject* colObj, ContactResultCallback* resultCallback)
 {
 	btVector3 aabbMin, aabbMax;
 	colObj->getCollisionShape()->getAabb(colObj->getWorldTransform(), aabbMin, aabbMax);
-	btSingleContactCallback contactCB(colObj, this, resultCallback);
+	btSingleContactCallback contactCB(colObj, this, *resultCallback);
 
 	m_broadphasePairCache->aabbTest(aabbMin, aabbMax, contactCB);
 }
 
 ///contactTest performs a discrete collision test between two collision objects and calls the resultCallback if overlap if detected.
 ///it reports one or more contact points (including the one with deepest penetration)
-void btCollisionWorld::contactPairTest(btCollisionObject* colObjA, btCollisionObject* colObjB, ContactResultCallback& resultCallback)
+void btCollisionWorld::contactPairTest(btCollisionObject* colObjA, btCollisionObject* colObjB, ContactResultCallback* resultCallback)
 {
 	btCollisionObjectWrapper obA(0, colObjA->getCollisionShape(), colObjA, colObjA->getWorldTransform(), -1, -1);
 	btCollisionObjectWrapper obB(0, colObjB->getCollisionShape(), colObjB, colObjB->getWorldTransform(), -1, -1);
@@ -1248,8 +1248,8 @@ void btCollisionWorld::contactPairTest(btCollisionObject* colObjA, btCollisionOb
 	btCollisionAlgorithm* algorithm = getDispatcher()->findAlgorithm(&obA, &obB, 0, BT_CLOSEST_POINT_ALGORITHMS);
 	if (algorithm)
 	{
-		btBridgedManifoldResult contactPointResult(&obA, &obB, resultCallback);
-		contactPointResult.m_closestPointDistanceThreshold = resultCallback.m_closestDistanceThreshold;
+		btBridgedManifoldResult contactPointResult(&obA, &obB, *resultCallback);
+		contactPointResult.m_closestPointDistanceThreshold = resultCallback->m_closestDistanceThreshold;
 		//discrete collision detection query
 		algorithm->processCollision(&obA, &obB, getDispatchInfo(), &contactPointResult);
 

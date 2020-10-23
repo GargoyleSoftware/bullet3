@@ -105,7 +105,7 @@ protected:
 	void stepForwardAndStrafe(btCollisionWorld * collisionWorld, const btVector3& walkMove);
 	void stepDown(btCollisionWorld * collisionWorld, btScalar dt);
 
-	virtual bool needsCollision(const btCollisionObject* body0, const btCollisionObject* body1);
+	virtual bool needsCollision(const btCollisionObject* const body0, const btCollisionObject* const body1);
 
 	void setUpVector(const btVector3& up);
 

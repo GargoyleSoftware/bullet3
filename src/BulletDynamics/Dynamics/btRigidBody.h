@@ -186,7 +186,7 @@ public:
 
 	///to keep collision detection and dynamics separate we don't store a rigidbody pointer
 	///but a rigidbody is derived from btCollisionObject, so we can safely perform an upcast
-	static const btRigidBody* upcast(const btCollisionObject* colObj)
+	static const btRigidBody* upcast(const btCollisionObject* const colObj)
 	{
 		if (colObj->getInternalType() & btCollisionObject::CO_RIGID_BODY)
 			return (const btRigidBody*)colObj;

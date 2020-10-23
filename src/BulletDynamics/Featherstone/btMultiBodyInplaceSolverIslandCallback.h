@@ -19,7 +19,7 @@
 #include "BulletDynamics/Featherstone/btMultiBodyDynamicsWorld.h"
 #include "btMultiBodyConstraintSolver.h"
 
-SIMD_FORCE_INLINE int btGetConstraintIslandId2(const btTypedConstraint* lhs)
+SIMD_FORCE_INLINE int btGetConstraintIslandId2(const btTypedConstraint* const lhs)
 {
     int islandId;
     
@@ -31,7 +31,7 @@ SIMD_FORCE_INLINE int btGetConstraintIslandId2(const btTypedConstraint* lhs)
 class btSortConstraintOnIslandPredicate2
 {
 public:
-    bool operator()(const btTypedConstraint* lhs, const btTypedConstraint* rhs) const
+    bool operator()(const btTypedConstraint* const lhs, const btTypedConstraint* const rhs) const
     {
         int rIslandId0, lIslandId0;
         rIslandId0 = btGetConstraintIslandId2(rhs);

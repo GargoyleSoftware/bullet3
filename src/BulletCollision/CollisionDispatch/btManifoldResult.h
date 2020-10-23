@@ -34,7 +34,7 @@ extern ContactAddedCallback gContactAddedCallback;
 //#define DEBUG_PART_INDEX 1
 
 /// These callbacks are used to customize the algorith that combine restitution, friction, damping, Stiffness
-typedef btScalar (*CalculateCombinedCallback)(const btCollisionObject* body0, const btCollisionObject* body1);
+typedef btScalar (*CalculateCombinedCallback)(const btCollisionObject* const body0, const btCollisionObject* const body1);
 
 extern CalculateCombinedCallback gCalculateCombinedRestitutionCallback;
 extern CalculateCombinedCallback gCalculateCombinedFrictionCallback;
@@ -139,12 +139,12 @@ public:
 		m_body1Wrap = obj1Wrap;
 	}
 
-	const btCollisionObject* getBody0Internal() const
+	const btCollisionObject* const getBody0Internal() const
 	{
 		return m_body0Wrap->getCollisionObject();
 	}
 
-	const btCollisionObject* getBody1Internal() const
+	const btCollisionObject* const getBody1Internal() const
 	{
 		return m_body1Wrap->getCollisionObject();
 	}
@@ -152,12 +152,12 @@ public:
 	btScalar m_closestPointDistanceThreshold;
 
 	/// in the future we can let the user override the methods to combine restitution and friction
-	static btScalar calculateCombinedRestitution(const btCollisionObject* body0, const btCollisionObject* body1);
-	static btScalar calculateCombinedFriction(const btCollisionObject* body0, const btCollisionObject* body1);
-	static btScalar calculateCombinedRollingFriction(const btCollisionObject* body0, const btCollisionObject* body1);
-	static btScalar calculateCombinedSpinningFriction(const btCollisionObject* body0, const btCollisionObject* body1);
-	static btScalar calculateCombinedContactDamping(const btCollisionObject* body0, const btCollisionObject* body1);
-	static btScalar calculateCombinedContactStiffness(const btCollisionObject* body0, const btCollisionObject* body1);
+	static btScalar calculateCombinedRestitution(const btCollisionObject* const body0, const btCollisionObject* const body1);
+	static btScalar calculateCombinedFriction(const btCollisionObject* const body0, const btCollisionObject* const body1);
+	static btScalar calculateCombinedRollingFriction(const btCollisionObject* const body0, const btCollisionObject* const body1);
+	static btScalar calculateCombinedSpinningFriction(const btCollisionObject* const body0, const btCollisionObject* const body1);
+	static btScalar calculateCombinedContactDamping(const btCollisionObject* const body0, const btCollisionObject* const body1);
+	static btScalar calculateCombinedContactStiffness(const btCollisionObject* const body0, const btCollisionObject* const body1);
 };
 
 #endif  //BT_MANIFOLD_RESULT_H

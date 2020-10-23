@@ -63,7 +63,7 @@ protected:
 	int m_part1;
 
 	//! Creates a new contact point
-	SIMD_FORCE_INLINE btPersistentManifold* newContactManifold(const btCollisionObject* body0, const btCollisionObject* body1)
+	SIMD_FORCE_INLINE btPersistentManifold* newContactManifold(const btCollisionObject* const body0, const btCollisionObject* const body1)
 	{
 		m_manifoldPtr = m_dispatcher->getNewManifold(body0, body1);
 		return m_manifoldPtr;

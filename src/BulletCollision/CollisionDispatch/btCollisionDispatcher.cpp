@@ -65,7 +65,7 @@ btCollisionDispatcher::~btCollisionDispatcher()
 {
 }
 
-btPersistentManifold* btCollisionDispatcher::getNewManifold(const btCollisionObject* body0, const btCollisionObject* body1)
+btPersistentManifold* btCollisionDispatcher::getNewManifold(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	//btAssert(gNumManifold < 65535);
 
@@ -144,7 +144,7 @@ btCollisionAlgorithm* btCollisionDispatcher::findAlgorithm(const btCollisionObje
 	return algo;
 }
 
-bool btCollisionDispatcher::needsResponse(const btCollisionObject* body0, const btCollisionObject* body1)
+bool btCollisionDispatcher::needsResponse(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	//here you can do filtering
 	bool hasResponse =
@@ -155,7 +155,7 @@ bool btCollisionDispatcher::needsResponse(const btCollisionObject* body0, const 
 	return hasResponse;
 }
 
-bool btCollisionDispatcher::needsCollision(const btCollisionObject* body0, const btCollisionObject* body1)
+bool btCollisionDispatcher::needsCollision(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	btAssert(body0);
 	btAssert(body1);

@@ -65,7 +65,7 @@ inline int getIslandId(const btPersistentManifold* lhs)
 	return islandId;
 }
 
-SIMD_FORCE_INLINE int btGetConstraintIslandId1(const btTypedConstraint* lhs)
+SIMD_FORCE_INLINE int btGetConstraintIslandId1(const btTypedConstraint* const lhs)
 {
 	const btCollisionObject& rcolObj0 = lhs->getRigidBodyA();
 	const btCollisionObject& rcolObj1 = lhs->getRigidBodyB();
@@ -113,7 +113,7 @@ void btSimulationIslandManagerMt::Island::append(const Island& other)
 	}
 }
 
-bool btIsBodyInIsland(const btSimulationIslandManagerMt::Island& island, const btCollisionObject* obj)
+bool btIsBodyInIsland(const btSimulationIslandManagerMt::Island& island, const btCollisionObject* const obj)
 {
 	for (int i = 0; i < island.bodyArray.size(); ++i)
 	{

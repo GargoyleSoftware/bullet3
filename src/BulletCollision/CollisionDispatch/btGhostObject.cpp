@@ -96,7 +96,7 @@ void btPairCachingGhostObject::removeOverlappingObjectInternal(btBroadphaseProxy
 	}
 }
 
-void btGhostObject::convexSweepTest(const btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, btCollisionWorld::ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration) const
+void btGhostObject::convexSweepTest(const btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, btCollisionWorld::ConvexResultCallback* resultCallback, btScalar allowedCcdPenetration) const
 {
 	btTransform convexFromTrans, convexToTrans;
 	convexFromTrans = convexFromWorld;
@@ -119,7 +119,7 @@ void btGhostObject::convexSweepTest(const btConvexShape* castShape, const btTran
 	{
 		btCollisionObject* collisionObject = m_overlappingObjects[i];
 		//only perform raycast if filterMask matches
-		if (resultCallback.needsCollision(collisionObject->getBroadphaseHandle()))
+		if (resultCallback->needsCollision(collisionObject->getBroadphaseHandle()))
 		{
 			//RigidcollisionObject* collisionObject = ctrl->GetRigidcollisionObject();
 			btVector3 collisionObjectAabbMin, collisionObjectAabbMax;
@@ -133,14 +133,14 @@ void btGhostObject::convexSweepTest(const btConvexShape* castShape, const btTran
 													collisionObject,
 													collisionObject->getCollisionShape(),
 													collisionObject->getWorldTransform(),
-													resultCallback,
+													*resultCallback,
 													allowedCcdPenetration);
 			}
 		}
 	}
 }
 
-void btGhostObject::rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, btCollisionWorld::RayResultCallback& resultCallback) const
+void btGhostObject::rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, btCollisionWorld::RayResultCallback* resultCallback) const
 {
 	btTransform rayFromTrans;
 	rayFromTrans.setIdentity();
@@ -154,13 +154,13 @@ void btGhostObject::rayTest(const btVector3& rayFromWorld, const btVector3& rayT
 	{
 		btCollisionObject* collisionObject = m_overlappingObjects[i];
 		//only perform raycast if filterMask matches
-		if (resultCallback.needsCollision(collisionObject->getBroadphaseHandle()))
+		if (resultCallback->needsCollision(collisionObject->getBroadphaseHandle()))
 		{
 			btCollisionWorld::rayTestSingle(rayFromTrans, rayToTrans,
 											collisionObject,
 											collisionObject->getCollisionShape(),
 											collisionObject->getWorldTransform(),
-											resultCallback);
+											*resultCallback);
 		}
 	}
 }

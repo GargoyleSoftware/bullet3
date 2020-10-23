@@ -164,7 +164,7 @@ public:
 
 	virtual btTypedConstraint* getConstraint(int index);
 
-	virtual const btTypedConstraint* getConstraint(int index) const;
+	virtual const btTypedConstraint* const getConstraint(int index) const;
 
 	virtual btDynamicsWorldType getWorldType() const
 	{

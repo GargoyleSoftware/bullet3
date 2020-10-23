@@ -258,7 +258,7 @@ public:
 	//!@}
 
 	//! virtual method for ray collision
-	virtual void rayTest(const btVector3& rayFrom, const btVector3& rayTo, btCollisionWorld::RayResultCallback& resultCallback) const
+	virtual void rayTest(const btVector3& rayFrom, const btVector3& rayTo, btCollisionWorld::RayResultCallback* resultCallback) const
 	{
 		(void)rayFrom;
 		(void)rayTo;
@@ -1069,7 +1069,7 @@ public:
 		return "GImpactMesh";
 	}
 
-	virtual void rayTest(const btVector3& rayFrom, const btVector3& rayTo, btCollisionWorld::RayResultCallback& resultCallback) const;
+	virtual void rayTest(const btVector3& rayFrom, const btVector3& rayTo, btCollisionWorld::RayResultCallback* resultCallback) const;
 
 	//! Function for retrieve triangles.
 	/*!

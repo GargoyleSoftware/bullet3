@@ -24,7 +24,7 @@ class btCollisionDispatcherMt : public btCollisionDispatcher
 public:
 	btCollisionDispatcherMt(btCollisionConfiguration* config, int grainSize = 40);
 
-	virtual btPersistentManifold* getNewManifold(const btCollisionObject* body0, const btCollisionObject* body1) BT_OVERRIDE;
+	virtual btPersistentManifold* getNewManifold(const btCollisionObject* const body0, const btCollisionObject* const body1) BT_OVERRIDE;
 	virtual void releaseManifold(btPersistentManifold* manifold) BT_OVERRIDE;
 
 	virtual void dispatchAllCollisionPairs(btOverlappingPairCache* pairCache, const btDispatcherInfo& info, btDispatcher* dispatcher) BT_OVERRIDE;

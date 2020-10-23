@@ -56,7 +56,7 @@ public:
 
 	static btCompoundShape* shiftTransformDistributeMass(btCompoundShape* boxCompound, btScalar mass, btTransform& shift);
 
-	static bool collisionCallback(btManifoldPoint& cp, const btCollisionObject* colObj0, int partId0, int index0, const btCollisionObject* colObj1, int partId1, int index1);
+	static bool collisionCallback(btManifoldPoint& cp, const btCollisionObject* const colObj0, int partId0, int index0, const btCollisionObject* const colObj1, int partId1, int index1);
 };
 
 void fractureCallback(btDynamicsWorld* world, btScalar timeStep);

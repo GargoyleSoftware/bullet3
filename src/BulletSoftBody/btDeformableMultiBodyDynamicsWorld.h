@@ -176,12 +176,12 @@ public:
         
         const btDeformableMultiBodyDynamicsWorld* m_world;
         btCollisionWorld::RayResultCallback& m_resultCallback;
-        
-        btDeformableSingleRayCallback(const btVector3& rayFromWorld, const btVector3& rayToWorld, const btDeformableMultiBodyDynamicsWorld* world, btCollisionWorld::RayResultCallback& resultCallback)
+
+        btDeformableSingleRayCallback(const btVector3& rayFromWorld, const btVector3& rayToWorld, const btDeformableMultiBodyDynamicsWorld* world, btCollisionWorld::RayResultCallback* resultCallback)
         : m_rayFromWorld(rayFromWorld),
         m_rayToWorld(rayToWorld),
         m_world(world),
-        m_resultCallback(resultCallback)
+        m_resultCallback(*resultCallback)
         {
             m_rayFromTrans.setIdentity();
             m_rayFromTrans.setOrigin(m_rayFromWorld);

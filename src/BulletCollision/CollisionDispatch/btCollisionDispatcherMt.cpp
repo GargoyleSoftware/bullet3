@@ -33,7 +33,7 @@ btCollisionDispatcherMt::btCollisionDispatcherMt(btCollisionConfiguration* confi
 	m_grainSize = grainSize;  // iterations per task
 }
 
-btPersistentManifold* btCollisionDispatcherMt::getNewManifold(const btCollisionObject* body0, const btCollisionObject* body1)
+btPersistentManifold* btCollisionDispatcherMt::getNewManifold(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	//optional relative contact breaking threshold, turned on by default (use setDispatcherFlags to switch off feature for improved performance)
 

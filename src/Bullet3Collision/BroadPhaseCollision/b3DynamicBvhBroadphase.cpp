@@ -234,6 +234,10 @@ struct BroadphaseRayTester : b3DynamicBvh::ICollide
 		: m_rayCallback(orgCallback)
 	{
 	}
+	BroadphaseRayTester(b3BroadphaseRayCallback* orgCallback)
+		: m_rayCallback(*orgCallback)
+	{
+	}
 	void Process(const b3DbvtNode* leaf)
 	{
 		b3DbvtProxy* proxy = (b3DbvtProxy*)leaf->data;

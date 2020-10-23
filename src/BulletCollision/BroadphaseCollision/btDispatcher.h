@@ -80,15 +80,15 @@ public:
 
 	virtual btCollisionAlgorithm* findAlgorithm(const btCollisionObjectWrapper* body0Wrap, const btCollisionObjectWrapper* body1Wrap, btPersistentManifold* sharedManifold, ebtDispatcherQueryType queryType) = 0;
 
-	virtual btPersistentManifold* getNewManifold(const btCollisionObject* b0, const btCollisionObject* b1) = 0;
+	virtual btPersistentManifold* getNewManifold(const btCollisionObject* const b0, const btCollisionObject* const b1) = 0;
 
 	virtual void releaseManifold(btPersistentManifold* manifold) = 0;
 
 	virtual void clearManifold(btPersistentManifold* manifold) = 0;
 
-	virtual bool needsCollision(const btCollisionObject* body0, const btCollisionObject* body1) = 0;
+	virtual bool needsCollision(const btCollisionObject* const body0, const btCollisionObject* const body1) = 0;
 
-	virtual bool needsResponse(const btCollisionObject* body0, const btCollisionObject* body1) = 0;
+	virtual bool needsResponse(const btCollisionObject* const body0, const btCollisionObject* const body1) = 0;
 
 	virtual void dispatchAllCollisionPairs(btOverlappingPairCache* pairCache, const btDispatcherInfo& dispatchInfo, btDispatcher* dispatcher) = 0;
 

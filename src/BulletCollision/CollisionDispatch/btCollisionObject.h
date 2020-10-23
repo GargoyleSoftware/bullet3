@@ -233,7 +233,7 @@ public:
 		return m_collisionShape;
 	}
 
-	void setIgnoreCollisionCheck(const btCollisionObject* co, bool ignoreCollisionCheck)
+	void setIgnoreCollisionCheck(const btCollisionObject* const co, bool ignoreCollisionCheck)
 	{
 		if (ignoreCollisionCheck)
 		{
@@ -251,7 +251,7 @@ public:
 		m_checkCollideWith = m_objectsWithoutCollisionCheck.size() > 0;
 	}
 
-	virtual bool checkCollideWithOverride(const btCollisionObject* co) const
+	virtual bool checkCollideWithOverride(const btCollisionObject* const co) const
 	{
 		int index = m_objectsWithoutCollisionCheck.findLinearSearch(co);
 		if (index < m_objectsWithoutCollisionCheck.size())
@@ -581,7 +581,7 @@ public:
 		return hasCustomColor;
 	}
 
-	inline bool checkCollideWith(const btCollisionObject* co) const
+	inline bool checkCollideWith(const btCollisionObject* const co) const
 	{
 		if (m_checkCollideWith)
 			return checkCollideWithOverride(co);

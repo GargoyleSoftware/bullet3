@@ -103,7 +103,7 @@ public:
 		return 0;
 	}
 
-	virtual const btTypedConstraint* getConstraint(int index) const
+	virtual const btTypedConstraint* const getConstraint(int index) const
 	{
 		(void)index;
 		return 0;

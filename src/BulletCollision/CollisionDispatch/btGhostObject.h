@@ -41,9 +41,12 @@ public:
 
 	virtual ~btGhostObject();
 
-	void convexSweepTest(const class btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, btCollisionWorld::ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration = 0.f) const;
+	void convexSweepTest(const class btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, btCollisionWorld::ConvexResultCallback& resultCallback, btScalar allowedCcdPenetration = 0.f) const {
+		convexSweepTest(castShape, convexFromWorld, convexToWorld, &resultCallback, allowedCcdPenetration);
+	}
+	void convexSweepTest(const class btConvexShape* castShape, const btTransform& convexFromWorld, const btTransform& convexToWorld, btCollisionWorld::ConvexResultCallback* resultCallback, btScalar allowedCcdPenetration = 0.f) const;
 
-	void rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, btCollisionWorld::RayResultCallback& resultCallback) const;
+	void rayTest(const btVector3& rayFromWorld, const btVector3& rayToWorld, btCollisionWorld::RayResultCallback* resultCallback) const;
 
 	///this method is mainly for expert/internal use only.
 	virtual void addOverlappingObjectInternal(btBroadphaseProxy * otherProxy, btBroadphaseProxy* thisProxy = 0);
@@ -60,7 +63,7 @@ public:
 		return m_overlappingObjects[index];
 	}
 
-	const btCollisionObject* getOverlappingObject(int index) const
+	const btCollisionObject* const getOverlappingObject(int index) const
 	{
 		return m_overlappingObjects[index];
 	}

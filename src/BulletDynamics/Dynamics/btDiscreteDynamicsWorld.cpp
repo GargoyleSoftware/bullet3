@@ -53,7 +53,7 @@ int startHit=2;
 int firstHit=startHit;
 #endif
 
-SIMD_FORCE_INLINE int btGetConstraintIslandId(const btTypedConstraint* lhs)
+SIMD_FORCE_INLINE int btGetConstraintIslandId(const btTypedConstraint* const lhs)
 {
 	int islandId;
 
@@ -66,7 +66,7 @@ SIMD_FORCE_INLINE int btGetConstraintIslandId(const btTypedConstraint* lhs)
 class btSortConstraintOnIslandPredicate
 {
 public:
-	bool operator()(const btTypedConstraint* lhs, const btTypedConstraint* rhs) const
+	bool operator()(const btTypedConstraint* const lhs, const btTypedConstraint* const rhs) const
 	{
 		int rIslandId0, lIslandId0;
 		rIslandId0 = btGetConstraintIslandId(rhs);
@@ -1371,7 +1371,7 @@ btTypedConstraint* btDiscreteDynamicsWorld::getConstraint(int index)
 {
 	return m_constraints[index];
 }
-const btTypedConstraint* btDiscreteDynamicsWorld::getConstraint(int index) const
+const btTypedConstraint* const btDiscreteDynamicsWorld::getConstraint(int index) const
 {
 	return m_constraints[index];
 }

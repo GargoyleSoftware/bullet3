@@ -28,7 +28,7 @@ CalculateCombinedCallback gCalculateCombinedSpinningFrictionCallback = &btManifo
 CalculateCombinedCallback gCalculateCombinedContactDampingCallback = &btManifoldResult::calculateCombinedContactDamping;
 CalculateCombinedCallback gCalculateCombinedContactStiffnessCallback = &btManifoldResult::calculateCombinedContactStiffness;
 
-btScalar btManifoldResult::calculateCombinedRollingFriction(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedRollingFriction(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	btScalar friction = body0->getRollingFriction() * body1->getFriction() + body1->getRollingFriction() * body0->getFriction();
 
@@ -40,7 +40,7 @@ btScalar btManifoldResult::calculateCombinedRollingFriction(const btCollisionObj
 	return friction;
 }
 
-btScalar btManifoldResult::calculateCombinedSpinningFriction(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedSpinningFriction(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	btScalar friction = body0->getSpinningFriction() * body1->getFriction() + body1->getSpinningFriction() * body0->getFriction();
 
@@ -53,7 +53,7 @@ btScalar btManifoldResult::calculateCombinedSpinningFriction(const btCollisionOb
 }
 
 ///User can override this material combiner by implementing gContactAddedCallback and setting body0->m_collisionFlags |= btCollisionObject::customMaterialCallback;
-btScalar btManifoldResult::calculateCombinedFriction(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedFriction(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	btScalar friction = body0->getFriction() * body1->getFriction();
 
@@ -65,17 +65,17 @@ btScalar btManifoldResult::calculateCombinedFriction(const btCollisionObject* bo
 	return friction;
 }
 
-btScalar btManifoldResult::calculateCombinedRestitution(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedRestitution(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	return body0->getRestitution() * body1->getRestitution();
 }
 
-btScalar btManifoldResult::calculateCombinedContactDamping(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedContactDamping(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	return body0->getContactDamping() + body1->getContactDamping();
 }
 
-btScalar btManifoldResult::calculateCombinedContactStiffness(const btCollisionObject* body0, const btCollisionObject* body1)
+btScalar btManifoldResult::calculateCombinedContactStiffness(const btCollisionObject* const body0, const btCollisionObject* const body1)
 {
 	btScalar s0 = body0->getContactStiffness();
 	btScalar s1 = body1->getContactStiffness();
