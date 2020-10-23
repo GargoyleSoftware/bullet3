@@ -116,9 +116,13 @@ inline int btIsDoublePrecision()
 #endif
 #ifndef __BT_DISABLE_SSE__
 			#if _MSC_VER>1400
+				#ifndef BT_USE_SIMD_VECTOR3
 				#define BT_USE_SIMD_VECTOR3
+				#endif
 			#endif
+			#ifndef BT_USE_SSE
 			#define BT_USE_SSE
+			#endif
 #endif//__BT_DISABLE_SSE__
 			#ifdef BT_USE_SSE
 
@@ -215,11 +219,17 @@ inline int btIsDoublePrecision()
 
 			#if (defined (__APPLE__) && (!defined (BT_USE_DOUBLE_PRECISION)))
 				#if defined (__i386__) || defined (__x86_64__)
+					#ifndef BT_USE_SIMD_VECTOR3
 					#define BT_USE_SIMD_VECTOR3
+					#endif
+					#ifndef BT_USE_SSE
 					#define BT_USE_SSE
+					#endif
 					//BT_USE_SSE_IN_API is enabled on Mac OSX by default, because memory is automatically aligned on 16-byte boundaries
 					//if apps run into issues, we will disable the next line
+					#ifndef
 					#define BT_USE_SSE_IN_API
+					#endif
 					#ifdef BT_USE_SSE
 						// include appropriate SSE level
 						#if defined (__SSE4_1__)
@@ -234,8 +244,12 @@ inline int btIsDoublePrecision()
 					#endif //BT_USE_SSE
 				#elif defined( __ARM_NEON__ )
 					#ifdef __clang__
+						#ifndef BT_USE_NEON
 						#define BT_USE_NEON 1
+						#endif
+						#ifndef BT_USE_SIMD_VECTOR3
 						#define BT_USE_SIMD_VECTOR3
+						#endif
 		
 						#if defined BT_USE_NEON && defined (__clang__)
 							#include <arm_neon.h>

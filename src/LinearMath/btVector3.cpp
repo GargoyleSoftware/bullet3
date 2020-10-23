@@ -16,7 +16,9 @@
  */
 
 #if defined(_WIN32) || defined(__i386__)
+#ifndef BT_USE_SSE_IN_API
 #define BT_USE_SSE_IN_API
+#endif
 #endif
 
 #include "btVector3.h"
