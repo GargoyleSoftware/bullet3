@@ -44,9 +44,7 @@ cc_library(
         ]),
     srcs = [
         "btBulletDynamicsAll.cpp",
-        ] + glob([
-          "BulletDynamics/**/*.cpp",
-        ]),
+        ],
     includes = [
         ".",
     ],
